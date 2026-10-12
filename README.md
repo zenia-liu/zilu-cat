@@ -87,10 +87,15 @@
 
 ## 下载与安装
 
-前往 [Releases](https://github.com/zenia-liu/zilu-cat/releases) 页面下载对应系统的安装包：
+前往 [Releases](https://github.com/zenia-liu/zilu-cat/releases/latest) 页面下载对应系统的安装包：
 
-- **macOS**：下载 `.dmg` 文件，打开后将「自律猫」拖入「应用程序」。
-- **Windows**：下载 `.exe` 安装程序，按提示完成安装。
+| 系统 | 文件 | 安装方式 |
+| --- | --- | --- |
+| macOS（Apple 芯片，M1 及以后） | `zilu-cat-arm64.dmg` | 打开 dmg，把「自律猫」拖入「应用程序」 |
+| macOS（Intel 芯片） | `zilu-cat-x64.dmg` | 打开 dmg，把「自律猫」拖入「应用程序」 |
+| Windows（64 位） | `zilu-cat-setup-x64.exe` | 双击运行，按提示完成安装 |
+
+不确定自己的 Mac 是哪种芯片？点击屏幕左上角的苹果菜单 →「关于本机」，芯片信息显示 Apple 的即为 Apple 芯片，显示 Intel 的即为 Intel 芯片。
 
 > 目前的安装包没有经过代码签名。首次打开时系统可能会拦截，这是正常现象，请按下面的方法放行：
 >
