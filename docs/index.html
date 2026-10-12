@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自律猫 · 桌面上的自律陪伴</title>
+    <meta
+      name="description"
+      content="自律猫是一只住在桌面上的橘猫，陪你做日常、写日记、经营人际关系、拆解目标。支持 macOS 与 Windows，数据只存在你的电脑上。"
+    />
+    <link rel="icon" href="icon.png" />
+    <style>
+      :root {
+        --paper: #f6f5f3;
+        --card: #ffffff;
+        --ink: #2b2320;
+        --ink-soft: #6d625c;
+        --muted: #9b918a;
+        --line: #e7e1db;
+        --primary: #3d2b25;
+        --on-primary: #ffffff;
+        --accent: #e8914a;
+        --accent-deep: #c4661f;
+        --accent-soft: #fcefe3;
+        --radius: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent-deep);
+      }
+
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* 顶栏 */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(246, 245, 243, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+      }
+
+      .nav {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+      }
+
+      .nav a {
+        color: var(--ink-soft);
+        text-decoration: none;
+      }
+
+      .nav a:hover {
+        color: var(--ink);
+      }
+
+      /* 首屏 */
+      .hero {
+        padding: 72px 0 56px;
+        text-align: center;
+      }
+
+      .hero img {
+        width: 132px;
+        height: 132px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        margin: 0 0 14px;
+        font-size: 44px;
+        line-height: 1.2;
+        letter-spacing: 0.5px;
+      }
+
+      .hero p {
+        margin: 0 auto;
+        max-width: 620px;
+        color: var(--ink-soft);
+        font-size: 18px;
+      }
+
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 32px;
+      }
+
+      .btn {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 210px;
+        padding: 12px 20px;
+        border-radius: 10px;
+        background: var(--primary);
+        color: var(--on-primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .btn small {
+        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .btn.ghost {
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--ink);
+      }
+
+      .btn.ghost small {
+        color: var(--muted);
+      }
+
+      .meta-line {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .meta-line a {
+        color: var(--ink-soft);
+      }
+
+      /* 通用区块 */
+      section {
+        padding: 56px 0;
+      }
+
+      section + section {
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        text-align: center;
+      }
+
+      .lead {
+        margin: 0 auto 36px;
+        max-width: 620px;
+        color: var(--ink-soft);
+        text-align: center;
+      }
+
+      /* 功能卡片 */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--card);
+      }
+
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 17px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+
+      .card .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      /* 截图 */
+      .shots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .shots img {
+        width: 100%;
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+
+      /* 安装引导 */
+      .install {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .install ol {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+
+      .install li {
+        margin-bottom: 6px;
+      }
+
+      .notice {
+        margin-top: 24px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        background: var(--accent-soft);
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+
+      /* 页脚 */
+      footer {
+        padding: 32px 0 48px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      footer a {
+        color: var(--ink-soft);
+      }
+
+      @media (max-width: 760px) {
+        .hero h1 {
+          font-size: 34px;
+        }
+
+        .features,
+        .shots,
+        .install {
+          grid-template-columns: 1fr;
+        }
+
+        .nav a:not(.keep) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="#top">
+          <img src="icon.png" alt="" />
+          自律猫
+        </a>
+        <nav class="nav">
+          <a class="keep" href="#download">下载</a>
+          <a href="#features">功能</a>
+          <a href="#install">安装</a>
+          <a href="https://github.com/zenia-liu/zilu-cat">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero" id="top">
+        <div class="wrap">
+          <img src="screenshots/pet.png" alt="自律猫的桌宠形象" />
+          <h1>一只陪你自律的桌面橘猫</h1>
+          <p>它常驻在桌面角落，到了你设定的时间，会提醒你今天还有哪些事没做完。日常、日记、人际关系和目标，都在一个地方管理。</p>
+
+          <div class="downloads" id="download">
+            <a class="btn" href="https://github.com/zenia-liu/zilu-cat/releases/latest/download/zilu-cat-arm64.dmg">
+              下载 macOS 版
+              <small>Apple 芯片（M 系列）</small>
+            </a>
+            <a class="btn" href="https://github.com/zenia-liu/zilu-cat/releases/latest/download/zilu-cat-x64.dmg">
+              下载 macOS 版
+              <small>Intel 芯片</small>
+            </a>
+            <a class="btn" href="https://github.com/zenia-liu/zilu-cat/releases/latest/download/zilu-cat-setup-x64.exe">
+              下载 Windows 版
+              <small>Windows 10 / 11（64 位）</small>
+            </a>
+          </div>
+          <p class="meta-line">
+            免费开源 · 无需注册 · 数据只保存在你的电脑上 ·
+            <a href="https://github.com/zenia-liu/zilu-cat/releases/latest">查看所有版本与更新日志</a>
+          </p>
+        </div>
+      </div>
+
+      <section id="features">
+        <div class="wrap">
+          <h2>它能帮你做什么</h2>
+          <p class="lead">五个模块，各管一件事。猫负责在你需要的时候出现。</p>
+          <div class="features">
+            <div class="card">
+              <span class="tag">桌宠</span>
+              <h3>常驻桌面的提醒</h3>
+              <p>猫会眯眼跳动，点击打开面板。每天到了提醒时间，它会告诉你还剩几件待办没做完。</p>
+            </div>
+            <div class="card">
+              <span class="tag">日常</span>
+              <h3>待办与日记</h3>
+              <p>按天记录待办，没完成的自动顺延到第二天。日记支持 Markdown，输入即渲染。</p>
+            </div>
+            <div class="card">
+              <span class="tag">日记同步</span>
+              <h3>一键同步到飞书</h3>
+              <p>可以把当天的日记同步到你自己的飞书云文档，每天只同步一次，同步前会确认已写完。</p>
+            </div>
+            <div class="card">
+              <span class="tag">社交</span>
+              <h3>保持联系的节奏</h3>
+              <p>记下认识的人，按 3、7、15、30 天的节奏提醒你联络。之后每 30 天一次，不会忘了老朋友。</p>
+            </div>
+            <div class="card">
+              <span class="tag">目标</span>
+              <h3>周、月、年与远期</h3>
+              <p>每个目标都可以写下「为什么」和「怎么做」。日历可以快速切换到任意年份和月份。</p>
+            </div>
+            <div class="card">
+              <span class="tag">隐私</span>
+              <h3>数据只在本地</h3>
+              <p>没有账号，没有云端服务，没有统计代码。数据保存在你自己的电脑上，你可以随时备份。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>界面预览</h2>
+          <p class="lead">浅色与深色主题都支持，设置里可以选择跟随系统。</p>
+          <div class="shots">
+            <img src="screenshots/goals-light.png" alt="目标页面（浅色主题）" loading="lazy" />
+            <img src="screenshots/goals-dark.png" alt="目标页面（深色主题）" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <section id="install">
+        <div class="wrap">
+          <h2>安装指南</h2>
+          <p class="lead">安装包目前没有购买开发者证书签名，所以系统首次打开时会拦截一下。这是正常的，按下面的步骤放行即可。</p>
+          <div class="install">
+            <div class="card">
+              <h3>macOS</h3>
+              <ol>
+                <li>下载对应芯片的 dmg 文件，双击打开。</li>
+                <li>把「自律猫」拖到「应用程序」文件夹。</li>
+                <li>第一次打开时，在「应用程序」里右键「自律猫」，选择「打开」。</li>
+                <li>如果仍然被拦截：打开「系统设置 → 隐私与安全性」，在底部点击「仍要打开」。</li>
+              </ol>
+            </div>
+            <div class="card">
+              <h3>Windows</h3>
+              <ol>
+                <li>下载 <code>zilu-cat-setup-x64.exe</code>，双击运行。</li>
+                <li>如果弹出「Windows 已保护你的电脑」，点击「更多信息」。</li>
+                <li>点击「仍要运行」，然后按提示完成安装。</li>
+                <li>安装完成后，桌面右下角会出现小猫。</li>
+              </ol>
+            </div>
+          </div>
+          <p class="notice">
+            不知道自己的 Mac 是哪种芯片？点击屏幕左上角的苹果菜单 →「关于本机」。芯片显示 Apple 的选择「Apple 芯片」版本，显示 Intel 的选择「Intel 芯片」版本。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        自律猫基于 MIT 许可证开源 · © 2026 Zenia Liu ·
+        <a href="https://github.com/zenia-liu/zilu-cat">GitHub</a> ·
+        <a href="https://github.com/zenia-liu/zilu-cat/issues">反馈问题</a>
+      </div>
+    </footer>
+  </body>
+</html>

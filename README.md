@@ -5,6 +5,12 @@
 </p>
 
 <p align="center">
+  <a href="https://zenia-liu.github.io/zilu-cat/">官网</a> ·
+  <a href="https://github.com/zenia-liu/zilu-cat/releases/latest">下载</a> ·
+  <a href="https://github.com/zenia-liu/zilu-cat/issues">反馈问题</a>
+</p>
+
+<p align="center">
   一只住在桌面上的橘猫，陪你做日常、写日记、经营人际关系、拆解目标。<br />
   支持 macOS 与 Windows，数据只保存在本机。
 </p>
